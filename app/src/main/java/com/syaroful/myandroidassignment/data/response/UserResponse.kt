@@ -1,8 +1,6 @@
 package com.syaroful.myandroidassignment.data.response
 
-import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
-import kotlinx.parcelize.Parcelize
 
 data class UserResponse(
 
@@ -16,7 +14,7 @@ data class UserResponse(
     val items: List<ItemsItem>
 )
 
-@Parcelize
+
 data class ItemsItem(
 
     @field:SerializedName("gists_url")
@@ -75,4 +73,4 @@ data class ItemsItem(
 
     @field:SerializedName("organizations_url")
     val organizationsUrl: String
-) : Parcelable
+)

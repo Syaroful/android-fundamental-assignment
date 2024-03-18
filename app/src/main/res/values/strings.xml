@@ -2,4 +2,9 @@
     <string name="app_name">My Android Assignment</string>
     <string name="username">Username</string>
     <string name="github_url">github url</string>
+    <string name="searchbar_hint">cari pengguna github</string>
+    <string name="detail_user">Detail User</string>
+    <string name="followers">Followers</string>
+    <string name="followers_count">123</string>
+    <string name="following">Following</string>
 </resources>

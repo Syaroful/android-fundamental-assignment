@@ -1,11 +1,13 @@
-package com.syaroful.myandroidassignment.ui
+package com.syaroful.myandroidassignment.ui.home
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.syaroful.myandroidassignment.data.response.ItemsItem
 import com.syaroful.myandroidassignment.databinding.ItemRowUserBinding
+import com.syaroful.myandroidassignment.ui.detail.UserDetailActivity
 
 class UserAdapter(private val users: List<ItemsItem>) :
     RecyclerView.Adapter<UserAdapter.ListViewHolder>() {
@@ -15,6 +17,11 @@ class UserAdapter(private val users: List<ItemsItem>) :
                 tvUsername.text = user.login
                 tvUrl.text = user.url
                 Glide.with(itemView.context).load(user.avatarUrl).into(imageView)
+            }
+            itemView.setOnClickListener {
+                val intent = Intent(itemView.context, UserDetailActivity::class.java)
+                intent.putExtra(UserDetailActivity.EXTRA_USERNAME, user.login)
+                itemView.context.startActivity(intent)
             }
         }
     }

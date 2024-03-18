@@ -1,4 +1,4 @@
-package com.syaroful.myandroidassignment.ui
+package com.syaroful.myandroidassignment.ui.home
 
 import android.util.Log
 import androidx.lifecycle.LiveData
@@ -28,7 +28,7 @@ class MainViewModel : ViewModel() {
         findUser()
     }
 
-    private fun findUser(query: String? = null) {
+    fun findUser(query: String? = null) {
         _isLoading.value = true
         val client = ApiConfig.getApiService().getUser(query ?: DEFAULT)
         client.enqueue(object : Callback<UserResponse> {

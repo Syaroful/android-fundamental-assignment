@@ -1,4 +1,4 @@
-package com.syaroful.myandroidassignment.ui
+package com.syaroful.myandroidassignment.ui.home
 
 import android.os.Bundle
 import android.view.View
@@ -35,11 +35,22 @@ class MainActivity : AppCompatActivity() {
         mainViewModel.isLoading.observe(this) {
             showLoading(it)
         }
+//        setup searchbar
+        with(binding) {
+            searchView.setupWithSearchBar(searchBar)
+            searchView
+                .editText
+                .setOnEditorActionListener { textView, actionId, event ->
+                    searchView.hide()
+                    mainViewModel.findUser(searchView.text.toString())
+                    false
+                }
+        }
 
     }
 
     private fun setUserData(users: List<ItemsItem>?) {
-        if(users != null){
+        if (users != null) {
             userAdapter = UserAdapter(users)
             binding.rvUsers.adapter = userAdapter
         }
