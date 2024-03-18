@@ -26,14 +26,13 @@ class UserDetailViewModel : ViewModel() {
         val client = ApiConfig.getApiService().getUserDetail(username)
         client.enqueue(object : Callback<DetailUserResponse> {
             override fun onResponse(
-                call: Call<DetailUserResponse>,
-                response: Response<DetailUserResponse>
+                call: Call<DetailUserResponse>, response: Response<DetailUserResponse>
             ) {
                 _isLoading.value = false
                 if (response.isSuccessful) {
                     _userDetail.value = response.body()
                 } else {
-                    Log.e(TAG, "onFailure : not Success ${response.message()}")
+                    Log.e(TAG, "onFailure : not Success ${response.message()} username $username")
                 }
             }
 

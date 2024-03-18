@@ -14,10 +14,10 @@ data class DetailUserResponse(
     val followingUrl: String,
 
     @field:SerializedName("twitter_username")
-    val twitterUsername: Any,
+    val twitterUsername: String,
 
     @field:SerializedName("bio")
-    val bio: Any,
+    val bio: String,
 
     @field:SerializedName("created_at")
     val createdAt: String,
@@ -52,14 +52,14 @@ data class DetailUserResponse(
     @field:SerializedName("gravatar_id")
     val gravatarId: String,
 
-    @field:SerializedName("email")
-    val email: Any,
+//    @field:SerializedName("email")
+//    val email: Any,
 
     @field:SerializedName("organizations_url")
     val organizationsUrl: String,
 
-    @field:SerializedName("hireable")
-    val hireable: Any,
+//    @field:SerializedName("hireable")
+//    val hireable: Any,
 
     @field:SerializedName("starred_url")
     val starredUrl: String,

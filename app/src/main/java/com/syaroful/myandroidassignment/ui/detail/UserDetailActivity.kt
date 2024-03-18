@@ -28,6 +28,9 @@ class UserDetailActivity : AppCompatActivity() {
         viewModel.userDetail.observe(this) {
             setUserData(it)
         }
+        viewModel.isLoading.observe(this){
+            showLoading(it)
+        }
     }
 
     private fun setUserData(user: DetailUserResponse) {
