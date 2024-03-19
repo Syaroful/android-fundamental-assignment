@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.syaroful.myandroidassignment.data.response.DetailUserResponse
+import com.syaroful.myandroidassignment.data.response.ItemsItem
 import com.syaroful.myandroidassignment.data.retrofit.ApiConfig
 import retrofit2.Call
 import retrofit2.Callback
@@ -16,6 +17,12 @@ class UserDetailViewModel : ViewModel() {
 
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
+
+    private val _userFollowers = MutableLiveData<List<ItemsItem>>()
+    val userFollowers: LiveData<List<ItemsItem>> = _userFollowers
+
+    private val _userFollowing = MutableLiveData<List<ItemsItem>>()
+    val userFollowing: LiveData<List<ItemsItem>> = _userFollowing
 
     companion object {
         private const val TAG = "UserDetailViewModel"
@@ -40,6 +47,52 @@ class UserDetailViewModel : ViewModel() {
                 _isLoading.value = false
                 Log.e(TAG, "onFailure : ${t.message.toString()}")
             }
+        })
+    }
+
+    fun findUserFollowers(username: String) {
+        _isLoading.value = true
+        val client = ApiConfig.getApiService().getFollowers(username)
+        client.enqueue(object : Callback<List<ItemsItem>> {
+            override fun onResponse(
+                call: Call<List<ItemsItem>>,
+                response: Response<List<ItemsItem>>
+            ) {
+                _isLoading.value = false
+                if (response.isSuccessful) {
+                    _userFollowers.value = response.body()
+                } else {
+                    Log.e(TAG, "onFailure: get followers data ${response.message()}")
+                }
+            }
+
+            override fun onFailure(call: Call<List<ItemsItem>>, t: Throwable) {
+                Log.e(TAG, "onFailure: ${t.message.toString()}")
+            }
+
+        })
+    }
+
+    fun findUserFollowing(username: String) {
+        _isLoading.value = true
+        val client = ApiConfig.getApiService().getFollowing(username)
+        client.enqueue(object : Callback<List<ItemsItem>> {
+            override fun onResponse(
+                call: Call<List<ItemsItem>>,
+                response: Response<List<ItemsItem>>
+            ) {
+                _isLoading.value = false
+                if (response.isSuccessful) {
+                    _userFollowing.value = response.body()
+                } else {
+                    Log.e(TAG, "onFailure: get following data ${response.message()}")
+                }
+            }
+
+            override fun onFailure(call: Call<List<ItemsItem>>, t: Throwable) {
+                Log.e(TAG, "onFailure: ${t.message.toString()}")
+            }
+
         })
     }
 }

@@ -51,7 +51,8 @@ class MainActivity : AppCompatActivity() {
 
     private fun setUserData(users: List<ItemsItem>?) {
         if (users != null) {
-            userAdapter = UserAdapter(users)
+            userAdapter = UserAdapter()
+            userAdapter.submitList(users)
             binding.rvUsers.adapter = userAdapter
         }
     }

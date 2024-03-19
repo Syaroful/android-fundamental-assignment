@@ -7,17 +7,6 @@
     tools:context=".ui.detail.UserDetailActivity">
 
 
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/imgDetailUser"
-        android:layout_width="56dp"
-        android:layout_height="56dp"
-        android:layout_marginTop="32dp"
-        android:scaleType="centerCrop"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:src="@tools:sample/avatars" />
-
     <TextView
         android:id="@+id/tvDetailUsername"
         android:layout_width="wrap_content"
@@ -41,7 +30,21 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvDetailUsername" />
 
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/imgDetailUser"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:layout_marginTop="32dp"
+        android:scaleType="centerCrop"
+        app:civ_border_color="@color/green"
+        app:civ_border_width="3dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:src="@tools:sample/avatars" />
+
     <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="300dp"
         android:layout_height="56dp"
         android:layout_marginTop="16dp"
@@ -67,6 +70,7 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="8dp"
                     android:text="@string/followers"
+                    android:textColor="@color/white"
                     android:textSize="10sp"
                     app:layout_constraintStart_toEndOf="@+id/ic_followers"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -79,13 +83,14 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/ic_followers_24dp" />
+                    app:srcCompat="@drawable/ic_followers24dp" />
 
                 <TextView
                     android:id="@+id/tvFollowersCount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/followers_count"
+                    android:textColor="@color/white"
                     android:textSize="16sp"
                     app:layout_constraintStart_toStartOf="@+id/tvFollowers"
                     app:layout_constraintTop_toBottomOf="@+id/tvFollowers" />
@@ -108,6 +113,7 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="8dp"
                     android:text="@string/following"
+                    android:textColor="@color/white"
                     android:textSize="10sp"
                     app:layout_constraintStart_toEndOf="@+id/ic_following"
                     app:layout_constraintTop_toTopOf="parent"
@@ -128,6 +134,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/followers_count"
+                    android:textColor="@color/white"
                     android:textSize="16sp"
                     app:layout_constraintStart_toStartOf="@+id/tvFollowing"
                     app:layout_constraintTop_toBottomOf="@+id/tvFollowing" />
@@ -136,6 +143,26 @@
         </LinearLayout>
 
     </LinearLayout>
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabs"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:tabIndicatorColor="@color/green"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/viewPager"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tabs" />
+
 
     <ProgressBar
         android:id="@+id/progressBar"
@@ -147,5 +174,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

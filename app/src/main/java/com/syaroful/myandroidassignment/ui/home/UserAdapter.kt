@@ -1,5 +1,6 @@
 package com.syaroful.myandroidassignment.ui.home
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -9,9 +10,17 @@ import com.syaroful.myandroidassignment.data.response.ItemsItem
 import com.syaroful.myandroidassignment.databinding.ItemRowUserBinding
 import com.syaroful.myandroidassignment.ui.detail.UserDetailActivity
 
-class UserAdapter(private val users: List<ItemsItem>) :
-    RecyclerView.Adapter<UserAdapter.ListViewHolder>() {
-    class ListViewHolder(val binding: ItemRowUserBinding) : RecyclerView.ViewHolder(binding.root) {
+class UserAdapter : RecyclerView.Adapter<UserAdapter.ListViewHolder>() {
+
+    private var users: List<ItemsItem> = listOf()
+
+    @SuppressLint("NotifyDataSetChanged")
+    fun submitList(newList: List<ItemsItem>) {
+        users = newList
+        notifyDataSetChanged()
+    }
+
+    class ListViewHolder(private val binding: ItemRowUserBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(user: ItemsItem) {
             binding.apply {
                 tvUsername.text = user.login
