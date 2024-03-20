@@ -54,7 +54,7 @@ class UserDetailActivity : AppCompatActivity() {
     private fun setUserData(user: DetailUserResponse) {
         binding.apply {
             tvDetailUsername.text = user.login
-            tvDetailUrl.text = user.url
+            tvDetailName.text = user.name
             tvFollowingCount.text = user.following.toString()
             tvFollowersCount.text = user.followers.toString()
             Glide.with(this@UserDetailActivity)
