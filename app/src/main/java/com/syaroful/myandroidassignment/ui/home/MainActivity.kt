@@ -1,13 +1,17 @@
 package com.syaroful.myandroidassignment.ui.home
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.syaroful.myandroidassignment.R
 import com.syaroful.myandroidassignment.data.response.ItemsItem
 import com.syaroful.myandroidassignment.databinding.ActivityMainBinding
+import com.syaroful.myandroidassignment.ui.favorite.FavoriteActivity
+import com.syaroful.myandroidassignment.ui.setting.SettingActivity
 
 class MainActivity : AppCompatActivity() {
 
@@ -20,7 +24,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        supportActionBar?.hide()
+//        supportActionBar?.hide()
 
 //        setup recycleview
         val layoutManager = LinearLayoutManager(this)
@@ -34,6 +38,24 @@ class MainActivity : AppCompatActivity() {
         }
         mainViewModel.isLoading.observe(this) {
             showLoading(it)
+        }
+        binding.searchBar.inflateMenu(R.menu.menu_item)
+        binding.searchBar.setOnMenuItemClickListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.favMenu -> {
+                    val intent = Intent(this, FavoriteActivity::class.java)
+                    startActivity(intent)
+                    true
+                }
+
+                R.id.settingMenu -> {
+                    val intent = Intent(this, SettingActivity::class.java)
+                    startActivity(intent)
+                    true
+                }
+
+                else -> false
+            }
         }
 //        setup searchbar
         with(binding) {

@@ -20,12 +20,15 @@ class UserAdapter : RecyclerView.Adapter<UserAdapter.ListViewHolder>() {
         notifyDataSetChanged()
     }
 
-    class ListViewHolder(private val binding: ItemRowUserBinding) : RecyclerView.ViewHolder(binding.root) {
+    class ListViewHolder(private val binding: ItemRowUserBinding) :
+        RecyclerView.ViewHolder(binding.root) {
         fun bind(user: ItemsItem) {
             binding.apply {
                 tvUsername.text = user.login
                 tvUrl.text = user.url
-                Glide.with(itemView.context).load(user.avatarUrl).into(imageView)
+                Glide.with(itemView.context)
+                    .load(user.avatarUrl)
+                    .into(imageView)
             }
             itemView.setOnClickListener {
                 val intent = Intent(itemView.context, UserDetailActivity::class.java)
