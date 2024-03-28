@@ -11,13 +11,18 @@ import com.google.android.material.tabs.TabLayoutMediator
 import com.syaroful.myandroidassignment.R
 import com.syaroful.myandroidassignment.data.response.DetailUserResponse
 import com.syaroful.myandroidassignment.databinding.ActivityUserDetailBinding
+import com.syaroful.myandroidassignment.ui.ViewModelFactory
 
 class UserDetailActivity : AppCompatActivity() {
     private lateinit var binding: ActivityUserDetailBinding
-    private val viewModel by viewModels<UserDetailViewModel>()
+    private val viewModel by viewModels<UserDetailViewModel> {
+        ViewModelFactory.getInstance(application)
+    }
 
     companion object {
         const val EXTRA_USERNAME = "extra_username"
+        const val EXTRA_URL = "extra_url"
+        const val EXTRA_AVATAR = "EXTRA_AVATAR"
         private val TAB_TITLES = intArrayOf(
             R.string.followers,
             R.string.following
@@ -29,7 +34,11 @@ class UserDetailActivity : AppCompatActivity() {
         binding = ActivityUserDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+
         val username = intent.getStringExtra(EXTRA_USERNAME)
+        val avatarUrl = intent.getStringExtra(EXTRA_AVATAR)
+        val url = intent.getStringExtra(EXTRA_URL)
+
         if (username != null) {
             viewModel.findUserDetail(username)
         }
@@ -39,6 +48,7 @@ class UserDetailActivity : AppCompatActivity() {
         viewModel.isLoading.observe(this) {
             showLoading(it)
         }
+        username?.let { viewModel.isUserFavorite(username = it) }
         val sectionsPagerAdapter = SectionsPagerAdapter(this, username ?: "")
         val viewPager: ViewPager2 = binding.viewPager
         viewPager.adapter = sectionsPagerAdapter

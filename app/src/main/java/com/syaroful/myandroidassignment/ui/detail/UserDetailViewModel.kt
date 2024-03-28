@@ -4,6 +4,8 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.syaroful.myandroidassignment.data.FavoriteUserRepository
+import com.syaroful.myandroidassignment.data.local.entity.FavoriteUserEntity
 import com.syaroful.myandroidassignment.data.response.DetailUserResponse
 import com.syaroful.myandroidassignment.data.response.ItemsItem
 import com.syaroful.myandroidassignment.data.retrofit.ApiConfig
@@ -11,7 +13,8 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class UserDetailViewModel : ViewModel() {
+class UserDetailViewModel(private val favoriteUserRepository: FavoriteUserRepository): ViewModel() {
+
     private val _userDetail = MutableLiveData<DetailUserResponse>()
     val userDetail: LiveData<DetailUserResponse> = _userDetail
 
@@ -55,8 +58,7 @@ class UserDetailViewModel : ViewModel() {
         val client = ApiConfig.getApiService().getFollowers(username)
         client.enqueue(object : Callback<List<ItemsItem>> {
             override fun onResponse(
-                call: Call<List<ItemsItem>>,
-                response: Response<List<ItemsItem>>
+                call: Call<List<ItemsItem>>, response: Response<List<ItemsItem>>
             ) {
                 _isLoading.value = false
                 if (response.isSuccessful) {
@@ -78,8 +80,7 @@ class UserDetailViewModel : ViewModel() {
         val client = ApiConfig.getApiService().getFollowing(username)
         client.enqueue(object : Callback<List<ItemsItem>> {
             override fun onResponse(
-                call: Call<List<ItemsItem>>,
-                response: Response<List<ItemsItem>>
+                call: Call<List<ItemsItem>>, response: Response<List<ItemsItem>>
             ) {
                 _isLoading.value = false
                 if (response.isSuccessful) {
@@ -94,5 +95,17 @@ class UserDetailViewModel : ViewModel() {
             }
 
         })
+    }
+
+    fun isUserFavorite(username: String) {
+        favoriteUserRepository.isUserFavorite(username)
+    }
+
+    fun addFavoriteUser(user: FavoriteUserEntity) {
+        favoriteUserRepository.addFavoriteUser(user)
+    }
+
+    fun deleteFavoritedUser(user: FavoriteUserEntity) {
+        favoriteUserRepository.deleteFavoriteUser(user)
     }
 }
