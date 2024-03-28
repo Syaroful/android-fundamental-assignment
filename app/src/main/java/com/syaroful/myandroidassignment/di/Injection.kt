@@ -8,7 +8,6 @@ import com.syaroful.myandroidassignment.utils.AppExecutors
 
 object Injection {
     fun provideRepository(context: Context): FavoriteUserRepository {
-        val apiService = ApiConfig.getApiService()
         val database = FavoriteUserDatabase.getDatabase(context)
         val dao = database.favoriteUserDao()
         val appExecutors = AppExecutors()

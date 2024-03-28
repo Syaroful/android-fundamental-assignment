@@ -10,7 +10,7 @@ import com.syaroful.myandroidassignment.data.local.entity.FavoriteUserEntity
 abstract class FavoriteUserDatabase : RoomDatabase() {
     abstract fun favoriteUserDao(): FavoriteUserDao
 
-        companion object {
+    companion object {
         @Volatile
         private var INSTANCE: FavoriteUserDatabase? = null
 

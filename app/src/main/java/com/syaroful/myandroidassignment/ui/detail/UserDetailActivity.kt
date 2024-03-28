@@ -9,6 +9,7 @@ import com.bumptech.glide.Glide
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.syaroful.myandroidassignment.R
+import com.syaroful.myandroidassignment.data.local.entity.FavoriteUserEntity
 import com.syaroful.myandroidassignment.data.response.DetailUserResponse
 import com.syaroful.myandroidassignment.databinding.ActivityUserDetailBinding
 import com.syaroful.myandroidassignment.ui.ViewModelFactory
@@ -35,20 +36,17 @@ class UserDetailActivity : AppCompatActivity() {
         setContentView(binding.root)
 
 
-        val username = intent.getStringExtra(EXTRA_USERNAME)
+        val username = intent.getStringExtra(EXTRA_USERNAME) ?: ""
         val avatarUrl = intent.getStringExtra(EXTRA_AVATAR)
         val url = intent.getStringExtra(EXTRA_URL)
 
-        if (username != null) {
-            viewModel.findUserDetail(username)
-        }
+        viewModel.findUserDetail(username)
         viewModel.userDetail.observe(this) {
             setUserData(it)
         }
         viewModel.isLoading.observe(this) {
             showLoading(it)
         }
-        username?.let { viewModel.isUserFavorite(username = it) }
         val sectionsPagerAdapter = SectionsPagerAdapter(this, username ?: "")
         val viewPager: ViewPager2 = binding.viewPager
         viewPager.adapter = sectionsPagerAdapter
@@ -59,12 +57,24 @@ class UserDetailActivity : AppCompatActivity() {
         }.attach()
 
         supportActionBar?.elevation = 0f
+        viewModel.isUserFavorite(username).observe(this) { favorite ->
+            val fabFavorite = binding.btnFavorite
+            if (favorite == null) {
+                fabFavorite.setImageResource(R.drawable.ic_fav_border)
+            } else {
+                fabFavorite.setImageResource(R.drawable.ic_fav_filled)
+            }
 
-//        if (username != null) {
-//            viewModel.isUserFavorite(username).observe(this){
-//
-//            }
-//        }
+            binding.btnFavorite.setOnClickListener {
+                val favoriteUser = FavoriteUserEntity(username, avatarUrl, url)
+                if (favorite == null) {
+                    viewModel.addFavoriteUser(favoriteUser)
+                } else {
+                    viewModel.deleteFavoritedUser(favoriteUser)
+                }
+            }
+        }
+
     }
 
     private fun setUserData(user: DetailUserResponse) {

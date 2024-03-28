@@ -13,7 +13,8 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class UserDetailViewModel(private val favoriteUserRepository: FavoriteUserRepository): ViewModel() {
+class UserDetailViewModel(private val favoriteUserRepository: FavoriteUserRepository) :
+    ViewModel() {
 
     private val _userDetail = MutableLiveData<DetailUserResponse>()
     val userDetail: LiveData<DetailUserResponse> = _userDetail
@@ -97,9 +98,7 @@ class UserDetailViewModel(private val favoriteUserRepository: FavoriteUserReposi
         })
     }
 
-    fun isUserFavorite(username: String) {
-        favoriteUserRepository.isUserFavorite(username)
-    }
+    fun isUserFavorite(username: String) = favoriteUserRepository.isUserFavorite(username)
 
     fun addFavoriteUser(user: FavoriteUserEntity) {
         favoriteUserRepository.addFavoriteUser(user)

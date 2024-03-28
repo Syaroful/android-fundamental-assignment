@@ -11,11 +11,11 @@ import kotlinx.parcelize.Parcelize
 data class FavoriteUserEntity(
 
     @PrimaryKey(autoGenerate = false)
-    val username: String = "",
+    var username: String = "",
 
     @ColumnInfo(name = "avatarUrl")
-    val avatarUrl: String? = null,
+    var avatarUrl: String? = null,
 
     @ColumnInfo(name = "url")
-    val url: String? = null,
+    var url: String? = null,
 ) : Parcelable

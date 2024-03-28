@@ -20,7 +20,7 @@ class FavoriteUserRepository private constructor(
         }
     }
 
-    fun isUserFavorite(username: String): LiveData<List<FavoriteUserEntity>> {
+    fun isUserFavorite(username: String): LiveData<FavoriteUserEntity> {
         return favoriteUserDao.isUserFavorited(username)
     }
 
