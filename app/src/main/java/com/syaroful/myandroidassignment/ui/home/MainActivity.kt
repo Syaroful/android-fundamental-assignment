@@ -5,6 +5,8 @@ import android.os.Bundle
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.syaroful.myandroidassignment.R
@@ -12,6 +14,10 @@ import com.syaroful.myandroidassignment.data.response.ItemsItem
 import com.syaroful.myandroidassignment.databinding.ActivityMainBinding
 import com.syaroful.myandroidassignment.ui.favorite.FavoriteActivity
 import com.syaroful.myandroidassignment.ui.setting.SettingActivity
+import com.syaroful.myandroidassignment.ui.setting.SettingPreferences
+import com.syaroful.myandroidassignment.ui.setting.SettingViewModel
+import com.syaroful.myandroidassignment.ui.setting.SettingViewModelFactory
+import com.syaroful.myandroidassignment.ui.setting.dataStore
 
 class MainActivity : AppCompatActivity() {
 
@@ -67,6 +73,19 @@ class MainActivity : AppCompatActivity() {
                     mainViewModel.findUser(searchView.text.toString())
                     false
                 }
+        }
+        val pref = SettingPreferences.getInstance(application.dataStore)
+        val settingViewModel = ViewModelProvider(
+            this,
+            SettingViewModelFactory(pref)
+        )[SettingViewModel::class.java]
+
+        settingViewModel.getThemeSettings().observe(this) { isDarkModeActive: Boolean ->
+            if (isDarkModeActive) {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+            } else {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+            }
         }
 
     }
