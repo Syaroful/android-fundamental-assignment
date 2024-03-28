@@ -8,7 +8,7 @@ import com.syaroful.myandroidassignment.di.Injection
 import com.syaroful.myandroidassignment.ui.detail.UserDetailViewModel
 import com.syaroful.myandroidassignment.ui.favorite.FavoriteViewModel
 
-class ViewModelFactory(private val favoriteUserRepository: FavoriteUserRepository) :
+class ViewModelFactory private constructor(private val favoriteUserRepository: FavoriteUserRepository) :
     ViewModelProvider.NewInstanceFactory() {
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel> create(modelClass: Class<T>): T {

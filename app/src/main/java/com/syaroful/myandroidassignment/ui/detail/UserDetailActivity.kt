@@ -22,7 +22,7 @@ class UserDetailActivity : AppCompatActivity() {
     companion object {
         const val EXTRA_USERNAME = "extra_username"
         const val EXTRA_URL = "extra_url"
-        const val EXTRA_AVATAR = "EXTRA_AVATAR"
+        const val EXTRA_AVATAR = "extra_avatar"
         private val TAB_TITLES = intArrayOf(
             R.string.followers,
             R.string.following
@@ -59,6 +59,12 @@ class UserDetailActivity : AppCompatActivity() {
         }.attach()
 
         supportActionBar?.elevation = 0f
+
+//        if (username != null) {
+//            viewModel.isUserFavorite(username).observe(this){
+//
+//            }
+//        }
     }
 
     private fun setUserData(user: DetailUserResponse) {
